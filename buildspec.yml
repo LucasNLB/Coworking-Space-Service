@@ -3,7 +3,8 @@ version: 0.2
 env:
   variables:
     IMAGE_REPO_NAME: project3
-    CODE_BUILD_NUMBER: latest
+    CODE_BUILD_NUMBER: 9
+    AWS_ACCOUNT_ID: 533806766642
 phases:
   pre_build:
     commands:
