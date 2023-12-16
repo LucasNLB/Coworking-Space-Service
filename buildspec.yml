@@ -1,7 +1,7 @@
 version: 0.2
 env:
   variables:
-    IMAGE_REPO_NAME: coworking-space-microservice
+    IMAGE_REPO_NAME: project3-coworking
     IMAGE_TAG: latest
 phases:
   pre_build:
