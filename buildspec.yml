@@ -14,7 +14,7 @@ phases:
     commands:
       - echo Starting build at `date`
       - echo Building the Docker image...
-      - docker build --build-arg DB_USERNAME=postgres --build-arg DB_PASSWORD=DWfdlnyuJg -t project3-coworking:latest ./app/.
+      - docker build --build-arg DB_USERNAME=postgres --build-arg DB_PASSWORD=DWfdlnyuJg -t $IMAGE_REPO_NAME:$CODE_BUILD_NUMBER ./app/.
       - docker tag $IMAGE_REPO_NAME:$CODE_BUILD_NUMBER $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODE_BUILD_NUMBER
   post_build:
     commands:
