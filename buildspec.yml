@@ -1,7 +1,7 @@
 version: 0.2
 env:
   variables:
-    IMAGE_REPO_NAME: project3-coworking
+    IMAGE_REPO_NAME: project3-coworking-udacity
     IMAGE_TAG: latest
 phases:
   pre_build:
@@ -18,6 +18,6 @@ phases:
     commands:
       - echo Completed build at `date`
       - echo Pushing the Docker image...
-      - docker push 533806766642.dkr.ecr.us-east-1.amazonaws.com/project3-coworking:latest
+      - docker push 533806766642.dkr.ecr.us-east-1.amazonaws.com/project3-coworking-udacity:latest
 
      
