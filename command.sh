@@ -2,17 +2,17 @@
 helm repo add project3-repo https://charts.bitnami.com/bitnami
 
 # Install PostgreSQL Helm Chart
-helm install udacity-postgre udacity-pr3/postgresql
+helm install --set primary.persistence.enabled=false udacity-postgre udacity-pr3/postgresql
 
 # The password can be retrieved with the following command:
 export POSTGRES_PASSWORD=$(kubectl get secret --namespace default udacity-postgre-postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
 echo $POSTGRES_PASSWORD
 
 # To connect to your database run the following command:
-kubectl run udacityservice-postgresql-client --rm --tty -i --restart='Never' --namespace default --image docker.io/bitnami/postgresql:16.1.0-debian-11-r0 --env="PGPASSWORD=xDvWjnuc7o" --command -- psql --host udacityservice-postgresql -U postgres -d postgres -p 5432
+kubectl run udacity-postgre-postgresql-client --rm --tty -i --restart='Never' --namespace default --image docker.io/bitnami/postgresql:16.1.0-debian-11-r0 --env="PGPASSWORD=DWfdlnyuJg" --command -- psql --host udacity-postgre-postgresql  -U postgres -d postgres -p 5432
 
 # Connecting Via Port Forwarding
-kubectl port-forward --namespace default svc/udacityservice-postgresql 5432:5432 & PGPASSWORD=xDvWjnuc7o psql --host 127.0.0.1 -U postgres -d postgres -p 5432
+kubectl port-forward --namespace default svc/udacity-postgre-postgresql 5433:5432 & PGPASSWORD= $POSTGRES_PASSWORD psql --host 127.0.0.1 -U postgres -d postgres -p 5433
 
 # Connecting Via a Pod
 kubectl exec -it udacity-postgre-postgresql bash 
@@ -20,9 +20,9 @@ PGPASSWORD="xDvWjnuc7o" psql postgres://postgres@udacityservice-postgresql:5432/
 
 kubectl port-forward svc/udacity-postgre-postgresql 5432:5432
 
-kubectl port-forward --namespace default svc/udacity-postgre-postgresql 5432:5432 & PGPASSWORD=xDvWjnuc7o psql --host 127.0.0.1 -U postgres -d postgres -p 5432 < ./db/1_create_tables.sql
-kubectl port-forward --namespace default svc/udacity-postgre-postgresql 5432:5432 & PGPASSWORD=xDvWjnuc7o psql --host 127.0.0.1 -U postgres -d postgres -p 5432 < ./db/2_seed_users.sql
-kubectl port-forward --namespace default svc/udacity-postgre-postgresql 5432:5432 & PGPASSWORD=xDvWjnuc7o psql --host 127.0.0.1 -U postgres -d postgres -p 5432 < ./db/3_seed_tokens.sql
+kubectl port-forward --namespace default svc/udacity-postgre-postgresql 5432:5432 & PGPASSWORD= $POSTGRES_PASSWORD psql --host 127.0.0.1 -U postgres -d postgres -p 5432 < ./db/1_create_tables.sql
+kubectl port-forward --namespace default svc/udacity-postgre-postgresql 5432:5432 & PGPASSWORD= $POSTGRES_PASSWORD psql --host 127.0.0.1 -U postgres -d postgres -p 5432 < ./db/2_seed_users.sql
+kubectl port-forward --namespace default svc/udacity-postgre-postgresql 5432:5432 & PGPASSWORD= $POSTGRES_PASSWORD psql --host 127.0.0.1 -U postgres -d postgres -p 5432 < ./db/3_seed_tokens.sql
 
 DB_USERNAME=postgres DB_PASSWORD=xDvWjnuc7o python app.py
 
