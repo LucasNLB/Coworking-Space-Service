@@ -15,7 +15,7 @@ spec:
         service: backend-coworking-space
     spec:
       containers:
-        - image: 533806766642.dkr.ecr.us-east-1.amazonaws.com/project3-coworking-udacity:latest
+        - image: 533806766642.dkr.ecr.us-east-1.amazonaws.com/project3-coworking-udacity:0.0.1
           name: backend-coworking-space
           imagePullPolicy: Always
           ports:
